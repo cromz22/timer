@@ -17,11 +17,9 @@
 	  var d = new Date(t);
 	  var m = d.getMinutes();
 	  var s = d.getSeconds();
-	  var ms = d.getMilliseconds();
 	  m = ('0' + m).slice(-2);
 	  s = ('0' + s).slice(-2);
-	  ms = ('000' + ms).slice(-3);
-	  timer.textContent = m + ':' + s + '.' + ms;
+	  timer.textContent = m + ':' + s;
   }
 
   function countDown() {
@@ -29,17 +27,12 @@
 		  var elapsedTime = Date.now() - startTime;
 		  timeLeft = timeToCountDown - elapsedTime;
 		  if (timeLeft < 0) {
-			  isRunning = false;
-			  start.textContent = 'Start';
-			  clearTimeout(timerId);
-			  timeLeft = 0;
-			  timeToCountDown = 0;
-			  updateTimer(timeLeft);
+			  updateTimer(Math.abs(timeLeft));
         timer.classList.remove("grey");
         timer.classList.add('red');
-			  return;
-		  }
-		  updateTimer(timeLeft);
+		  } else {
+        updateTimer(timeLeft);
+      }
 		  countDown();
 	  }, 10);
   }
